@@ -50,11 +50,9 @@ class TextAnalysisServiceTest {
     @Test
     void analyseTextWithNoLetters() {
         TextAnalysisRequest request = new TextAnalysisRequest("CONSONANT", "1234567890");
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
-            textAnalysisService.analyseText(request);
-        });
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
-        assertEquals("No letters found in the text", exception.getReason());
+        TextAnalysisResponse response = textAnalysisService.analyseText(request);
+        assertNotNull(response);
+        assertEquals(0,response.getLetterCounts().size());
     }
 
     @Test
